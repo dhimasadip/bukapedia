@@ -1,6 +1,6 @@
 const { Cart, Product } = require('../models')
 const { QueryTypes, Op, Sequelize } = require('sequelize')
-const sequelize = new Sequelize(process.env.DB, process.env.UNAME, process.env.PWD, {
+const sequelize = new Sequelize(process.env.DB, process.env.UNAME, process.env.PASS, {
     dialect: 'postgres'
 })
 
@@ -72,7 +72,7 @@ class CartController {
         Cart.findAll({
             include: Product,
             where: {
-                UserId: id
+                [Op.and]: [{ UserId: id }, { status: 'unpaid' }]
             }
         })
         .then(data => {
@@ -91,6 +91,40 @@ class CartController {
         })
         .then(data => {
             return sequelize.query(queryString, { type: QueryTypes.UPDATE })
+        })
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(err => {
+            // console.log(err)
+            
+            console.log(process.env.PWD)
+            next({ str_code: err })
+        })
+    }
+
+    static remove(req,res,next) {
+
+        const { id } = req.query
+
+        Cart.destroy({
+            where: { id }
+        })
+        .then(data => {
+            res.status(200).json({ message: 'Successfully removed cart' })
+        })
+        .catch(err => {
+            next({ str_code: err })
+        })
+
+
+    }
+
+    static edit(req,res,next) {
+        const { quantity, id } = req.body
+
+        Cart.update({ quantity }, {
+            where: { id }
         })
         .then(data => {
             res.status(200).json(data)
