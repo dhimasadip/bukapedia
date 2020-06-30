@@ -11,8 +11,9 @@ class CartController {
         Cart.findAll({
             include: Product,
             where: {
-                UserId: id
-            }
+                [Op.and]: [{ UserId: req.user.id }, { status: 'unpaid' }]
+            },
+            order: [['updatedAt', 'DESC']]
         })
         .then(data => {
             res.status(200).json(data)
@@ -36,7 +37,7 @@ class CartController {
             return Cart.findOne({
                 include: Product,
                 where: {
-                    [Op.and]: [{ UserId: req.user.id }, { ProductId: newCart.ProductId }]
+                    [Op.and]: [{ UserId: req.user.id }, { ProductId: newCart.ProductId }, { status: 'unpaid' }]
                 }
             })
         })
