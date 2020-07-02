@@ -72,7 +72,6 @@ export default {
                     total_price: Number(this.quantity) * Number(price),
                     id
                 })
-                console.log(price)
             }
         },
         destroy(id) {

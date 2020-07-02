@@ -24,7 +24,7 @@
                 <div class="dropdown-menu text-right bg-foster-50" aria-labelledby="navbarDropdown" v-if="getName !== 'Sign In'">
                     <a class="dropdown-item" type="button" @click="signOut">Sign Out</a>
                     <a class="dropdown-item" type="button" @click="myCart">My Cart</a>
-                    <a class="dropdown-item" type="button" >Transactions</a>
+                    <a class="dropdown-item" type="button" @click="transactions">Transactions</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" type="button">{{ getEmail }}</a>
                 </div>
@@ -121,6 +121,9 @@ export default {
             } else {
                 this.showDropdown = true
             }
+        },
+        transactions() {
+            this.$router.push({ name: 'Transactions'})
         }
     },
     computed: {

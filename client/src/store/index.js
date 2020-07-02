@@ -13,6 +13,7 @@ export default new Vuex.Store({
     user: {},
     details: {},
     showModal: false,
+    transactions : []
   },
   mutations: {
     SET_LOGIN(state, data) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     },
     SET_SHOW_MODAL(state, data) {
       state.showModal = data
+    },
+    SET_TRANSACTIONS(state, data) {
+      state.transactions = data
     }
   },
   actions: {
@@ -167,6 +171,19 @@ export default new Vuex.Store({
     },
     setShowModal({ commit }, data) {
       commit('SET_SHOW_MODAL', data)
+    },
+    getTransactions({ commit }) {
+      http.get('/histories', {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(({ data }) => {
+        commit('SET_TRANSACTIONS', data)
+      })
+      .catch(( err) => {
+        console.log(err.response)
+      })
     }
       
   },

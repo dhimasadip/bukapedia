@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Dashboard from '../views/Dashboard.vue'
 import Cart from '../views/Cart.vue'
+import Transactions from '../views/Transactions.vue'
 import DetailProduct from '../views/DetailProduct.vue'
 // import SignIn from '../components/ModalSignIn.vue'
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/my-cart',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/transactions',
+    name: 'Transactions',
+    component: Transactions
   },
   {
     path: '/product/:id',
