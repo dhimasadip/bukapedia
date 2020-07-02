@@ -1,0 +1,37 @@
+
+.bg-foster {
+    background-color: #30336b !important;
+}
+
+.bg-foster-50 {
+    background-color: #979ad0 !important;
+}
+
+.text-foster {
+    color: #30336b !important;
+}
+
+.text-foster-50 {
+    color: #979ad0 !important;
+}
+
+.nav-fixed {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    z-index: 200;
+}
+
+
+.btn-carrot {
+    background-color: #e67e22 !important;
+    color: #fff !important;
+    border: 1px solid #e67e22 !important;
+}
+
+.btn-carrot:hover {
+    background-color: #cc762b !important;
+    color: #fff !important;
+    border: 1px solid #cc762b !important;
+}

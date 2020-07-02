@@ -6,8 +6,8 @@ const HistoryRouter = require('./HistoryRouter')
 const authentication = require('../middlewares/authentication')
 
 router.use('/', UserRouter)
-router.use(authentication)
 router.use('/products', ProductRouter)
+router.use(authentication)
 router.use('/my-cart', CartRouter)
 router.use('/histories', HistoryRouter)
 

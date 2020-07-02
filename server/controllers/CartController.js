@@ -11,9 +11,9 @@ class CartController {
         Cart.findAll({
             include: Product,
             where: {
-                [Op.and]: [{ UserId: req.user.id }, { status: 'unpaid' }]
+                [Op.and]: [{ UserId: id }, { status: 'unpaid' }]
             },
-            order: [['updatedAt', 'DESC']]
+            order: [['createdAt', 'DESC']]
         })
         .then(data => {
             res.status(200).json(data)
@@ -121,9 +121,9 @@ class CartController {
     }
 
     static edit(req,res,next) {
-        const { quantity, id } = req.body
+        const { quantity, id, total_price } = req.body
 
-        Cart.update({ quantity }, {
+        Cart.update({ quantity, total_price }, {
             where: { id }
         })
         .then(data => {

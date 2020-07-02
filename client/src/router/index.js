@@ -1,23 +1,34 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Dashboard from '../views/Dashboard.vue'
+import Cart from '../views/Cart.vue'
+import DetailProduct from '../views/DetailProduct.vue'
+// import SignIn from '../components/ModalSignIn.vue'
+
+// {
+//   path: '/signin',
+//   name: 'SignIn',
+//   component: SignIn
+// },
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Dashboard',
+    component: Dashboard,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/my-cart',
+    name: 'Cart',
+    component: Cart
   },
+  {
+    path: '/product/:id',
+    name: 'DetailProduct',
+    component: DetailProduct
+  }
 ];
 
 const router = new VueRouter({
@@ -25,5 +36,11 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'DetailProduct') next()
+  else if (to.name !== 'Dashboard' && !localStorage.access_token) next({ name: 'Dashboard' })
+  else next()
+})
 
 export default router;
