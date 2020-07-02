@@ -93,7 +93,7 @@ class CartController {
             return sequelize.query(queryString, { type: QueryTypes.UPDATE })
         })
         .then(data => {
-            res.status(200).json(data)
+            res.status(200).json({ message: 'All Products has been paid'})
         })
         .catch(err => {
             // console.log(err)
@@ -125,6 +125,9 @@ class CartController {
 
         Cart.update({ quantity, total_price }, {
             where: { id }
+        })
+        .then(data => {
+            return Cart.findByPk(id)
         })
         .then(data => {
             res.status(200).json(data)
